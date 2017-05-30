@@ -1,0 +1,85 @@
+Descrizione ciclo con SIEMENS
+
+Per testare un ciclo comandato con un plc di casa SIEMENS, abbiamo creato un ciclo
+di 3 attuatori con le seguenti fasi in sucussione: A+, B+, C+, C-, B-, A-.
+
+I primi 2 passaggi essenziali, sia per comprendere il conseguirsi delle fasi, sia per generare il circuito finito, sono la stesura di 
+una grafico movimento-fasi, sia un Grafcet opportunamente contratto.
+Generando il Grafcet notiamo che possiamo contrarre le fasi A+, B+, C+ in un unica fase (1)
+mentre le fasi C-, B-, A- vengono contratte nella fase (2) in modo da utilizzare un solo merker X
+
+Dopo aver strutturato il Grafcet passiamo alle equazioni logiche che andranno a definire la nostra rete ladder.
+[inserire equazione]
+
+Così facendo possiamo strutturare la nostra rete ladder preliminare che andrà 
+riprodotta fedelmente nel software del personal computer e, una volta generato il programma,
+dovrà essere caricato sul plc in modo da poterlo utilizzare per automatizzare il nostro circuito. 
+Per quanto riguarda la stesura della rete ladder sul software, l'interfaccia per la programmazione del plc SIEMENS 
+coincide strutturalmente proprio con il linguaggio ladder, in modo da garantire una facile approccio alla compliazione del nostro porgramma.
+Quindi ricreiamo brutalmente la rete ladder sul software inserendo valvole e bobbine messe a dispozione nella lista
+di strumenti disponibili nel programma e, una volta riprodotto il tutto, il suddetto convertirà tutto in linguaggio macchina 
+in modo da poterlo successivamente caricarlo sulla memoria del pls.
+Entrando nel dettaglio della programmazione, definiamo le nomenclature da noi utilizzate per quanto riguarda il sistema SIEMENS.
+Gli ingressi vengono denominati [inserire nomenclatura], è possiamo vantare un numero complessivo di ingressi pari a 
+[inserire numero], mentre per quanto riguarda le uscite, la nomenclatura utilizzata è [inserire nomenclatura] e possiamo
+utilizzare un numero di uscire pari a [numero di uscite]. In fine abbiamo i Merker che vengono denominati [inserire denominazione] 
+e in totale possiamo utilizzarne [inserire numero].
+Componendo la notrsa rete ladder con ingressi, uscire e merker siamo in grado di riprodurre in maniera completa la rete 
+ladder precendentemente scritta.
+Una volta composta la rete bisogna controllare se si sono generati degli errori dovuti a sviste di battitura
+o da sovrapposizioni di varie bobbine su una ramo della rete ladder. In virtù di ciò si può eseguire la compilazione della rete 
+in modo tale che il software controlli gli evetuali errori presenti.
+Una volta che ci siamo assicurati che non ci sono errori, possiamo avviare la procedura di trasporto del software sulla memoria del plc.
+Per fare ciò bisogna: mettere in modalita "stop" il plc, caricare il programma sulla memoria e infine riposizionare il plc in modalità "run".
+Giunti a questa fase siamo finalmente pronti a far gestire tutta l'automazione del nostro circuito al nostro plc che,
+in base al programma precendemente caricato, connetterà le entrate con le uscite e alimenterà le nostre valvole elettro-pneumatiche
+in modo da garantire il modo degli attuatori. 
+
+Descrizione ciclo con OMRON
+
+Al fine di testare un processo di automatizzazione di una linea tramite un plc di casa OMRON, il funzionamento del temporizzatore e
+il funzionamento del contatore, abbiamo creato un ciclo con le seguenti fasi: A+, TIM, A-, CNT
+Nella generazione del grafcet, andiamo a contrarre le fasi A- e CNT in una unica fase (3) proprio in virtù della pecularietà del contatore.
+Successivamente possiamo generare le equazioni logiche basandoci sull nostro Grafcet contratto e, di conseguenza, redigere uno schema ladder.
+Entrando nel dettaglio della programmazione, definiamo le nomenclature da noi utilizzate per quanto riguarda il sistema OMRON.
+Gli ingressi vengono denominati: 00.02 (start), 00.04 (a0) e 00.05 (a1); possiamo vantare un numero complessivo di ingressi pari a 12 da 00.00 a 00.11. Per quanto riguarda le uscite, la nomenclatura utilizzata è: 10.02 (A+) e 10.03 (A-); possiamo
+utilizzare un numero di uscire pari ad 8 da 10.00 a 10.07. Infine abbiamo i Merker che vengono denominati: 20.08 (inizializzazione), 20.09 (fase 0), 20.02 (fase 1), 20.03 (fase 2) e 20.04 (fase 3); 
+dove il range va da 20.00 a 20.255.
+Componendo la notrsa rete ladder con ingressi, uscire e merker siamo in grado di riprodurre in maniera completa la rete 
+ladder precendentemente scritta.
+In questo caso andremmo a creare una rete ladder denominata "a programmazione strutturata" che contiene 4 fasi distinte: 
+La prima fase di inizializzazione, la seconda fase della gestione del ciclo automatico, la terza fase che contiene le azioni da compiere e la quarta fase che
+contiene la gestione degli allarmi ma che in questa esercitazione noi non andremmo ad utilizzare.
+In questo modo particolare di strutturare il nsotro schea ladder si fa un largo uso di sistema di "SET" e "RESET" delle variabili prese in cosiderazione.
+Usare il comando "SET" su una variabile si permette di tenerla "settata" finché non verrà "resettara" dal comando "RESET".
+Nella fase di inizializzazione viene inserito un merker detto di "inizializzazione" normalmente chiuso che attiva 2 bobbine "SET" che vanno settare
+la fase 0 nella gestione del ciclo automatico e setta l'inizializzazione che da normalmente chiuso va in posizione aperta. 
+Ora si passa alla fase 2, cioé la gestione del ciclo automatico che, da come si intuisce dal nome, è la parte della rete ladder dedicata alla gestioni
+e alle attivazioni delle azioni che andranno acompiersi nel nostro circuito.
+In questa fase troviamo concatenazioni di settaggi e resettaggi gestiti in modo tale da azzionare consecutivamente le fasi nell'ordine da noi precedentemente stabilito.
+Nella terza ed ultima parte, sempre per quanto riguarda la nostra esercitazione, abbiamo la fase in cui solo elencate e richiamate tutte le azioni da compiere
+durate il nostro circuito e che verrano gestite dalla fase 3 della rete ladder.
+Nella fase 2 del grafcet, abbiamo previsto un temporizzatore, cioè una funzione atta a creare un lasso di tempo da noi precedentemente definito, 
+che andremmo ad inserire tra una fase ed un'altra del nostro ciclo. Il nostro temporizzatore necessita di 3 varibili: la prima serve per essere richiamata nella rete ladder,
+la seconda è la base che verra successivamente moltiplicata ad una costante per ottenere lasso di tempo finale che andremmo effettivamente a generare tra le fasi e la appena citata costante.
+Inserendo tutte e 3 le variabili correttamente e posizionando la bobbina "temporizzatrice" al corrispettivo posto nello schema ladder, 
+riusciamo finalmente a generare il lasso di tempo da noi previsto nella schema.
+Successivamente nella fase 3 del grafcet abbiamo previsto un contatore che ha lo scopo di arrestare il ciclo continuo da noi generato, dopo un preciso numero di cicli effettuati.
+Come nel caso del temporizzatore il contatore necessita di alcune variabili come: la variabile per essere richiamato nella schema ladder e il numero di cicli dopo cui deve essere interro il ciclo.
+Posizionando opportunamente comeda schema il contatore nella 3 fase dello schema ladder, avremmo che il circuito si interromperà dopo aver cocluso il numero di cicli da noi precedentemente impostato.
+Una volta composta la rete bisogna controllare se si sono generati degli errori dovuti a sviste di battitura
+o da sovrapposizioni di varie bobbine su una ramo della rete ladder. In virtù di ciò si può eseguire la compilazione della rete 
+in modo tale che il software controlli gli evetuali errori presenti.
+Una volta che ci siamo assicurati che non ci sono errori, possiamo avviare la procedura di trasporto del software sulla memoria del plc.
+Per fare ciò bisogna: mettere in modalita "stop" il plc, caricare il programma sulla memoria e infine riposizionare il plc in modalità "run".
+Giunti a questa fase siamo finalmente pronti a far gestire tutta l'automazione del nostro circuito al nostro plc che,
+in base al programma precendemente caricato, connetterà le entrate con le uscite, generarerà un lasso di tempo di attesa tra le fasi da noi impostate, interromperà il ciclo
+ad un numero preciso di ripetizioni da noi impostato e alimenterà le nostre valvole elettro-pneumatiche
+in modo da garantire il modo degli attuatori. 
+
+
+   
+ 
+
+ 
+
