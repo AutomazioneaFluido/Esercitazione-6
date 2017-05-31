@@ -1,0 +1,95 @@
+Introduzione
+
+L’obiettivo della prova è quello di realizzare un circuito di comando di un sistema elettropneumatico che coinvolga 2 o 3 cilindri pneumatici utilizzando le funzioni di temporizzazione e conteggio. Includiamo poi nella relazione:
+1) Il diagramma movimento-fasi
+2) Il grafcet
+3) Il programma in rete ladder
+Si devono utilizzare due diversi PLC: OMRON e SIEMENS.
+
+
+Strumenti Utilizzati
+
+Prova con SIEMENS
+
+-Banco degli attuatori, che comprende:
+-Cilindri pneumatici a doppio effetto x3
+-Valvole bistabili a comando elettropneumatico x3
+-Valvole monostabili di fine corsa a comando elettropneumatico x6
+-Tubi in poliuretano
+-Cavi elettrici
+-Alimentazione (aria compressa)
+-Alimentazione (energia elettrica 24V)
+-Banco del PLC, che comprende:
+-Valvola monostabile a pulsante
+-Valvola bistabile a leva
+-Valvola monostabile a pulsante di emergenza
+-Lampadine elettriche x2
+-Lampadine pneumatiche x2
+-Valvola monostabile a comando elettropneumatico
+-Valvola bistabile a comando elettropneumatico
+-Switch di accensione/spegnimento
+-PLC Siemens
+
+
+Descrizione ciclo con SIEMENS
+
+Per testare un ciclo comandato con un PLC di casa SIEMENS, abbiamo creato un ciclo di 3 attuatori con le seguenti fasi in successione: A+, B+, C+, C-, B-, A-.
+I primi 2 passaggi essenziali, sia per comprendere il conseguirsi delle fasi, sia per generare il circuito finito, sono la stesura di un grafico movimento-fasi, sia un Grafcet opportunamente contratto.
+Generando il Grafcet notiamo che possiamo contrarre le fasi A+, B+, C+ in un’unica fase (1) mentre le fasi C-, B-, A- vengono contratte nella fase (2) in modo da utilizzare un solo marker X.
+
+[inserire movimento fasi a 3 cilindri siemens - inserire grafcet 3 cilindri]
+
+Per quanto riguarda la stesura della rete ladder sul software, l'interfaccia per la programmazione del PLC SIEMENS coincide strutturalmente proprio con il linguaggio ladder, in modo da garantire una facile approccio alla compilazione del nostro programma. Quindi ricreiamo brutalmente la rete ladder sul software inserendo valvole e bobine messe a disposizione nella lista di strumenti disponibili nel programma e, una volta riprodotto il tutto, il suddetto convertirà tutto in linguaggio macchina in modo da poterlo successivamente caricarlo sulla memoria del PLC.
+Componendo la nostra rete ladder con ingressi, uscite e marker siamo in grado di riprodurre in maniera completa la rete ladder precedentemente scritta. Una volta composta la rete bisogna controllare se si sono generati degli errori dovuti a sviste di battitura o da sovrapposizioni di varie bobine su un ramo della rete ladder. In virtù di ciò si può eseguire la compilazione della rete in modo tale che il software controlli gli eventuali errori presenti.
+Una volta che ci siamo assicurati che non ci siano errori, possiamo avviare la procedura di trasporto del software sulla memoria del PLC. Per fare ciò bisogna: mettere in modalità "stop" il PLC, caricare il programma sulla memoria e infine riposizionare il PLC in modalità "run".
+Giunti a questa fase siamo finalmente pronti a far gestire tutta l'automazione del nostro circuito al nostro PLC che, in base al programma precedentemente caricato, connetterà le entrate con le uscite e alimenterà le nostre valvole elettro-pneumatiche in modo da garantire il modo degli attuatori. 
+
+[inserire ladder a 3 cilindri]
+
+
+
+Strumenti Utilizzati
+
+Prova con OMRON
+
+-Banco degli attuatori, che comprende:
+-Cilindri pneumatici a doppio effetto x3
+-Valvole bistabili a comando elettropneumatico x3
+-Valvole monostabili di fine corsa a comando elettropneumatico x6
+-Tubi in poliuretano
+-Cavi elettrici
+-Alimentazione (aria compressa)
+-Alimentazione (energia elettrica 24V)
+-Banco del PLC, che comprende:
+-Valvola monostabile a pulsante
+-Valvola bistabile a leva
+-Valvola monostabile a pulsante di emergenza
+-Lampadine elettriche x2
+-Lampadine pneumatiche x2
+-Valvola monostabile a comando elettropneumatico
+-Valvola bistabile a comando elettropneumatico
+-Switch di accensione/spegnimento
+-PLC OMRON
+
+
+Descrizione ciclo con OMRON
+
+Al fine di testare un processo di automatizzazione di una linea tramite un PLC di casa OMRON, il funzionamento del temporizzatore e il funzionamento del contatore, abbiamo creato un ciclo con le seguenti fasi: A+, TIM, A-, CNT.
+Nella generazione del grafcet, andiamo a contrarre le fasi A- e CNT in una unica fase (3) proprio in virtù della peculiarità del contatore.
+
+[grafcet TIM e CNT]
+
+Successivamente possiamo redigere uno schema ladder, ed entrando nel dettaglio della programmazione, definiamo le nomenclature da noi utilizzate per quanto riguarda il sistema OMRON.
+Gli ingressi vengono denominati: 00.02 (start), 00.04 (a0) e 00.05 (a1); possiamo vantare un numero complessivo di ingressi pari a 12 da 00.00 a 00.11. Per quanto riguarda le uscite, la nomenclatura utilizzata è: 10.02 (A+) e 10.03 (A-); possiamo utilizzare un numero di uscite pari ad 8 da 10.00 a 10.07. Infine abbiamo i marker che vengono denominati: 20.08 (inizializzazione), 20.09 (fase 0), 20.02 (fase 1), 20.03 (fase 2) e 20.04 (fase 3); dove il range va da 20.00 a 20.255.
+Componendo la nostra rete ladder con ingressi, uscite e marker siamo in grado di riprodurre in maniera completa la rete ladder precedentemente scritta. In questo caso andremmo a creare una rete ladder denominata "a programmazione strutturata" che contiene 4 fasi distinte: 
+La prima fase di inizializzazione, la seconda fase della gestione del ciclo automatico, la terza fase che contiene le azioni da compiere e la quarta fase che contiene la gestione degli allarmi ma che in questa esercitazione noi non andremmo ad utilizzare. In questo modo particolare di strutturare il nostro schema ladder si fa un largo uso di sistema di "SET" e "RESET" delle variabili prese in considerazione.
+Usare il comando "SET" su una variabile si permette di tenerla "settata" finché non verrà "resettare" dal comando "RESET".
+
+[inserire ladder omron - inserire esecuzione azioni omron]
+
+Nella fase di inizializzazione viene inserito un marker detto di "inizializzazione" normalmente chiuso che attiva 2 bobine "SET" che vanno settare la fase 0 nella gestione del ciclo automatico e setta l'inizializzazione che da normalmente chiuso va in posizione aperta. Ora si passa alla fase 2, cioè la gestione del ciclo automatico che, da come si intuisce dal nome, è la parte della rete ladder dedicata alle gestioni e alle attivazioni delle azioni che andranno a compiersi nel nostro circuito. In questa fase troviamo concatenazioni di settaggi e resettaggi gestiti in modo tale da azionare consecutivamente le fasi nell'ordine da noi precedentemente stabilite.
+Nella terza ed ultima parte, sempre per quanto riguarda la nostra esercitazione, abbiamo la fase in cui sono elencate e richiamate tutte le azioni da compiere durante il nostro circuito e che verranno gestite dalla fase 3 della rete ladder.
+Nella fase 2 del grafcet, abbiamo previsto un temporizzatore, cioè una funzione atta a creare un lasso di tempo da noi precedentemente definito, che andremmo ad inserire tra una fase ed un'altra del nostro ciclo. Il nostro temporizzatore necessita di 3 variabili: la prima serve per essere richiamata nella rete ladder, la seconda è la base che verrà successivamente moltiplicata ad una costante per ottenere un lasso di tempo finale che andremmo effettivamente a generare tra le fasi e la appena citata costante. Inserendo tutte e 3 le variabili correttamente e posizionando la bobina "temporizzatrice" al corrispettivo posto nello schema ladder, riusciamo finalmente a generare il lasso di tempo da noi previsto nello schema.
+Successivamente nella fase 3 del grafcet abbiamo previsto un contatore che ha lo scopo di arrestare il ciclo continuo da noi generato, dopo un preciso numero di cicli effettuati. Come nel caso del temporizzatore il contatore necessita di alcune variabili come: la variabile per essere richiamato nella schema ladder e il numero di cicli dopo cui deve essere interro il ciclo.
+Posizionando opportunamente come da schema il contatore nella 3 fase dello schema ladder, avremmo che il circuito si interromperà dopo aver concluso il numero di cicli da noi precedentemente impostato.
+Una volta composta la rete bisogna controllare se si sono generati degli errori dovuti a sviste di battitura o da sovrapposizioni di varie bobine su un ramo della rete ladder. In virtù di ciò si può eseguire la compilazione della rete in modo tale che il software controlli gli eventuali errori presenti. Una volta che ci siamo assicurati che non ci siano errori, possiamo avviare la procedura di trasporto del software sulla memoria del PLC. Per fare ciò bisogna: mettere in modalità "stop" il PLC, caricare il programma sulla memoria e infine riposizionare il PLC in modalità "run". Giunti a questa fase siamo finalmente pronti a far gestire tutta l'automazione del nostro circuito al nostro PLC che, in base al programma precedentemente caricato, connetterà le entrate con le uscite, genererà un lasso di tempo di attesa tra le fasi da noi impostate, interromperà il ciclo ad un numero preciso di ripetizioni da noi impostato e alimenterà le nostre valvole elettro-pneumatiche in modo da garantire il moto degli attuatori.
