@@ -1,0 +1,191 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[italian,english]{babel}
+\usepackage{amssymb,latexsym,amsfonts,amsmath}
+\usepackage{lipsum}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage[enable-survey]{pdfpages}
+
+\begin{document}
+
+
+\title{Esercitazione 6}
+\date{April 5 , 2017}
+\maketitle
+
+
+\author{Alessio Susco \hspace*{2cm} Nicola Bomba \hspace*{2cm} Fabrizio Ursini  \\  \hspace*{1,85cm} Alessandra Di Martino \hspace*{1,25cm} Diego Guzman}
+
+\includepdf[pages={1},pagecommand={\thispagestyle{plain}}]{eserc6.pdf} 
+
+\tableofcontents
+
+\clearpage
+
+\section{Introduzione Generale}
+L’obiettivo della prova è quello di realizzare un circuito di comando di un sistema elettropneumatico che coinvolga 2 o 3 cilindri pneumatici utilizzando le funzioni di temporizzazione e conteggio. Includiamo poi nella relazione:
+
+\begin{itemize}
+\item Il diagramma movimento-fasi;
+\item Il grafcet;
+\item Il programma in rete ladder.
+Si devono utilizzare due diversi PLC: OMRON e SIEMENS.
+\end{itemize}
+
+\section{Strumenti Utilizzati}
+
+\subsection{Prova con SIEMENS}
+Banco degli attuatori, che comprende:
+\begin{itemize}
+\item Cilindri pneumatici a doppio effetto x3;
+\item Valvole bistabili a comando elettropneumatico x3;
+\item Valvole monostabili di fine corsa a comando elettropneumatico x6;
+\item Tubi in poliuretano;
+\item Cavi elettrici;
+\item Alimentazione (aria compressa);
+\item Alimentazione elettrica 24V.
+\end{itemize}
+
+Banco del PLC, che comprende:
+\begin{itemize}
+\item Valvola monostabile a pulsante;
+\item Valvola bistabile a leva;
+\item Valvola monostabile a pulsante di emergenza;
+\item Lampadine elettriche x2;
+\item Lampadine pneumatiche x2;
+\item Valvola monostabile a comando elettropneumatico;
+\item Valvola bistabile a comando elettropneumatico;
+\item Switch di accensione/spegnimento;
+\item PLC SIEMENS.
+\end{itemize}
+E' stato infine utilizzato un Computer con il Software STEP 7 per la programmazione Ladder del PLC SIEMENS.
+
+
+\subsection{Prova con OMRON}
+Banco degli attuatori, che comprende:
+\begin{itemize}
+\item Cilindri pneumatici a doppio effetto x3;
+\item Valvole bistabili a comando elettropneumatico x3;
+\item Valvole monostabili di fine corsa a comando elettropneumatico x6;
+\item Tubi in poliuretano;
+\item Cavi elettrici;
+\item Alimentazione (aria compressa);
+\item Alimentazione elettrica 24V.
+\end{itemize}
+
+Banco del PLC, che comprende:
+\begin{itemize}
+\item Valvola monostabile a pulsante;
+\item Valvola bistabile a leva;
+\item Valvola monostabile a pulsante di emergenza;
+\item Lampadine elettriche x2;
+\item Lampadine pneumatiche x2;
+\item Valvola monostabile a comando elettropneumatico;
+\item Valvola bistabile a comando elettropneumatico;
+\item Switch di accensione/spegnimento;
+\item PLC OMRON.
+\end{itemize}
+
+E' stato infine utilizzato un Computer con il Software SYSWIN per la programmazione Ladder del PLC OMRON.
+
+\section{Osservazione Preliminare}
+\subsection{Prova con SIEMENS}
+\subsubsection{Prova 0: Esercitazione alla Lavagna}
+Come prova preliminare effettuiamo un semplice esercizio di uscita e rientro di un cilindro A. Nel programma riportiamo i comandi di input, output e i marker. Di seguito riportiamo gli schemi necessari.
+\subsubsection{Prova 1: Esercitazione 5.1}
+Riprendiamo lo schema del primo esercizio dell’esercitazione 5, in cui utilizziamo due cilindri A e B. Scriviamo grafcet, grafcet contratto, rete ladder, diagramma movimento-fasi e equazioni logiche, e successivamente riportiamo nel programma OMRON i comandi.
+\subsubsection{Prova 2: Esercitazione 5.2}
+In questo caso prendiamo lo schema del secondo esercizio dell’esercitazione 5, e ripetiamo gli step della prova precedente.
+\subsection{Prova con OMRON}
+\subsubsection{Prova 0: Esercitazione alla Lavagna}
+Basandoci sulla prova 0 del PLC SIEMENS usiamo lo stesso schema ma aggiungiamo un temporizzatore nel momento in cui il cilindro è fuoriuscito. Per programmare il PLC SIEMENS usiamo un linguaggio diverso, in cui input, output e marker sono rappresentati con altre simbologie. Nella documentazione includiamo anche le reti ladder secondo il progetto strutturato di comando e di azionamento.
+\subsubsection{Prova 1: Esercitazione 5.1}
+Sempre con lo schema della prova 1 ora aggiungiamo un contatore dopo il rientro del cilindro A, che determinerà il numero di cicli da effettuare prima di interrompersi automaticamente. Inoltre includiamo tutta la documentazione elencata precedentemente.
+\section{Schema Circuito}
+\subsection{Schema Esercizio 1}
+
+\begin{center}
+%\includegraphics[scale=0.6]{ES4ES1P2.png}
+\end{center}
+
+\subsection{Schema Esercizio 2}
+\begin{center}
+%\includegraphics[scale=0.6]{ES4ES2P1.png}
+\end{center}
+
+
+\section{Calcoli}
+\dots
+\clearpage
+
+\section{Grafici Esercizio 1}
+
+\subsection{Diagramma movimento-fasi}
+\subsection{Grafcet Contratto}
+Grafcet relativo all'esercizio con Temporizzatore
+\begin{center}
+\includegraphics[scale=0.6]{GrafcetES1.png}
+\end{center}
+\subsection{Programmazione Strutturata in Rete Ladder}
+\subsubsection{Inizializzazione}
+\subsubsection{Gestione Ciclo Automatico}
+\begin{center}
+\includegraphics[scale=0.6]{GesAzES1.png}
+\end{center}
+\subsubsection{Esecuzione Azioni}
+\begin{center}
+\includegraphics[scale=0.6]{EsAzES1.png}
+\end{center}
+\subsubsection{Gestione Allarmi}
+Specificare nelle osservazioni che è stata ignorata la parte sulla gestione allarmi
+\clearpage
+
+\section{Grafici Esercizio 2}
+
+\subsection{Diagramma movimento-fasi}
+\subsection{Grafcet Contratto}
+Grafcet relativo all'esercizio con Temporizzatore e Contatore
+\begin{center}
+\includegraphics[scale=0.6]{GrafcetES2.png}
+\end{center}
+
+\subsection{Programmazione Strutturata in Rete Ladder}
+\subsubsection{Inizializzazione}
+\subsubsection{Gestione Ciclo Automatico}
+\begin{center}
+%\includegraphics[scale=0.6]{GesAzES1.png}
+\end{center}
+\subsubsection{Esecuzione Azioni}
+\begin{center}
+%\includegraphics[scale=0.6]{EsAzES1.png}
+\end{center}
+\subsubsection{Gestione Allarmi}
+Specificare nelle osservazioni che è stata ignorata la parte sulla gestione allarmi
+\clearpage
+
+
+
+
+
+
+\section{Descrizione Approfondita dell'Esercitazione}
+\subsection{Descrizione Esercizio 1}
+...
+\begin{itemize}
+\item ...
+\end{itemize}
+...
+
+\subsection{Descrizione Esercizio 2}
+\dots
+
+\section{Conclusioni}
+\subsection{Conclusioni Esercizio 1}
+\dots
+\subsection{Conclusioni Esercizio 2}
+\dots
+
+
+\end{document}
